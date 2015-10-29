@@ -1,5 +1,4 @@
-# wikimedia
-Discovery Team task test
+# Discovery Team task test
 
 
 Attached is a sample Apache log-file. Using standard command-line tools, parse the file to produce the following:
@@ -14,5 +13,4 @@ Attached is a sample Apache log-file. Using standard command-line tools, parse t
 - For each of the top 10 IPs, show the top 5 pages requested and the number of requests for each
 
 For bonus points, please explain what you think is going on in this log-file. For extra bonus points, generate an ASCII bar-chart showing the number of requests per minute For super extra bonus points, write a script that would do this every hour and generate a html report.  Reply by email with your command lines used to generate the above reports
-
 
