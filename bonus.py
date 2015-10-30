@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
-# 43.94.157.30 - - [28/Aug/2015:14:30:45 +0200] "GET /wiki/Main_Page HTTP/1.1" 200 1694 "-" "Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/11.0.696.50 Safari/534.24"
-
-# For extra bonus points, generate an ASCII bar-chart showing the number of requests per minute
-# For super extra bonus points, write a script that would do this every hour and generate a html report.
-
 '''
-    This script processes a web server access log and allows extraction of data from each line.
-    It also generates an ascii bar chart of requests per minute, and optionally generates an html report around the chart, suitable to run hourly from cron.
-    Matthew Ghali, 10/2015
+    This script processes a web server access log and allows extraction of
+    data from each line.
+
+    It also generates an ascii bar chart of requests per minute, and
+    optionally generates an html report around the chart, suitable to run
+    hourly from cron.
+
+    - Matthew Ghali, 10/2015
 '''
 
 
 import datetime, sys
 from dateutil import parser
+
 
 class LogLine(object):
     '''
@@ -22,7 +23,8 @@ class LogLine(object):
     def __init__(self, line):
         l = line.split()
         self.srcaddr = l[0]
-        self.datetime = parser.parse(' '.join([l[3][1:-9], l[3][-8:], l[4][:-1]]))
+        self.datetime = parser.parse(' '.join([l[3][1:-9], l[3][-8:],
+                                              l[4][:-1]]))
         self.unixtime = int(self.datetime.strftime('%s'))
         self.method = l[5][1:]
         self.uri = l[6]
@@ -50,7 +52,11 @@ def quantize(requests, incr):
 
     return buckets
 
+
 def graph(buckets, width):
+    '''
+        produce a graph from data in dictionary, of 'width' characters wide.
+    '''
     maxval = max(buckets.values())
     keylen = 17
 
@@ -61,18 +67,22 @@ def graph(buckets, width):
         rval = (buckets[bucket] / float(maxval)) * width
         print datetime.datetime.fromtimestamp(bucket).strftime('%D %T'), '*' * int(rval)
 
+
 def report(requests):
+    '''
+        produce an html report from output of the graph() function.
+    '''
     reportwidth = 50
     quantizelen = 10
 
     start_time  = datetime.datetime.fromtimestamp(requests[0]).strftime('%D %T')
-    ending_time = datetime.datetime.fromtimestamp(requests[-1]).strftime('%D %T')
+    end_time = datetime.datetime.fromtimestamp(requests[-1]).strftime('%D %T')
     buckets = quantize(requests, quantizelen)
  
     print "<html><head>"
-    print "<title>", start_time, '-', ending_time, "</title>"
+    print "<title>", start_time, '-', end_time, "</title>"
     print "</head><body>"
-    print "<h1>Web requests for the period", start_time, '-', ending_time, "</h1>"
+    print "<h1>Web requests for the period", start_time, '-', end_time, "</h1>"
     print "<pre>"
     graph(buckets, reportwidth)
     print "</pre></body></html>"
