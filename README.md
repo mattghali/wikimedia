@@ -19,5 +19,7 @@ For bonus points, please explain what you think is going on in this log-file. Fo
 Solutions for all command-line tasks can be found in:
  * The [oneliners](../master/oneliners) shell script, annotated by task. 
  * A sample [run of the script](https://travis-ci.org/mattghali/wikimedia) is available via travis-ci.org.
+ * A [bonus script](../master/bonus.py) script generates an ascii bar graph of web requests, showing requests per ten-second period (configurable, per minute wasn't very exciting looking) is included.
+ * From the log contents, it looks like several hosts are trying repeatedly to probe for a path traversal exploit. That doesn't make sense- either it works the first time, or it doesn't work.
 
 
