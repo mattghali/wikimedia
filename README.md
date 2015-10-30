@@ -14,3 +14,10 @@ Attached is a sample Apache log-file. Using standard command-line tools, parse t
 
 For bonus points, please explain what you think is going on in this log-file. For extra bonus points, generate an ASCII bar-chart showing the number of requests per minute For super extra bonus points, write a script that would do this every hour and generate a html report.  Reply by email with your command lines used to generate the above reports
 
+
+## Solutions
+Solutions for all command-line tasks can be found in:
+ * The [oneliners](../master/oneliners) shell script, annotated by task. 
+ * A sample [run of the script](https://travis-ci.org/mattghali/wikimedia) is available via travis-ci.org.
+
+
